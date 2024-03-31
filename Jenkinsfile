@@ -1,6 +1,8 @@
 pipeline {
     agent any
 
+    stages{
+
         stage('Checkout') {
             steps {
                 // Checkout the Terraform scripts from your repository
