@@ -49,8 +49,7 @@ pipeline {
                         
                     bat 'helm package currency-exchange-chart'
                     bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
-                    
-                    
+                                
                 }
             }
         }
