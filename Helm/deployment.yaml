@@ -23,7 +23,7 @@ spec:
         app: currency-exchange
     spec:
       containers:
-      - image: yashwanthreddysamala/mmv3-currency-exchange-service:0.0.12-SNAPSHOT
+      - image: yashwanthreddysamala/mmv3-currency-exchange-service:Latest
         imagePullPolicy: Always
         name: mmv3-currency-exchange-service
         readinessProbe:
