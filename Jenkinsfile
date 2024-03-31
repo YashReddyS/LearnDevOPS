@@ -41,5 +41,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Push docker image to docker Hub') {
+            steps {
+
+                dir('Helm') {
+                    bat "helm package currency-exchange-chart"
+                    bat "helm install currency-exchange-chart ./currency-exchange-chart-0.1.0.tgz"
+                }
+            }
+        }
     }
 }
