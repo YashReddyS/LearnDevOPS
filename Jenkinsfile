@@ -25,8 +25,8 @@ pipeline {
         stage('Push docker image to docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/', DOCKER_CREDENTIALS) {
-                            docker.image('yashwanthreddysamala/mmv3-currency-exchange-service').push('latest')
+                    docker.withRegistry('https://hub.docker.io/yashwanthreddysamala', DOCKER_CREDENTIALS) {
+                            docker.image('mmv3-currency-exchange-service').push('latest')
                         }
                 }
             }
