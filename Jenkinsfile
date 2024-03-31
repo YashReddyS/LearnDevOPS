@@ -46,6 +46,7 @@ pipeline {
             steps {
 
                 dir('Helm') {
+                    bat "gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907"
                     bat "helm package currency-exchange-chart"
                     bat "helm install currency-exchange-chart ./currency-exchange-chart-0.1.0.tgz"
                 }
