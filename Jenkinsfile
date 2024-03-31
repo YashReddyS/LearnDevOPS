@@ -22,7 +22,8 @@ pipeline {
             steps {
                       withCredentials([usernamePassword(credentialsId: 'Docker-credentials', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                       bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                      bat 'docker push yashwanthreddysamala/mmv3-currency-exchange-service:0.0.12-SNAPSHOT'
+                      bat  "docker tag yashwanthreddysamala/mmv3-currency-exchange-service:0.0.12-SNAPSHOT yashwanthreddysamala/mmv3-currency-exchange-service:Latest"
+                      bat 'docker push yashwanthreddysamala/mmv3-currency-exchange-service:Latest'
                 }
             }
         }
