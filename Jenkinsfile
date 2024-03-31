@@ -24,9 +24,11 @@ pipeline {
 
         stage('Push docker image to docker Hub') {
             steps {
-                docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
-                        docker.build('yashwanthreddysamala/mmv3-currency-exchange-service').push('latest')
-                    }
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
+                            docker.build('yashwanthreddysamala/mmv3-currency-exchange-service').push('latest')
+                        }
+                }
             }
         }
 
