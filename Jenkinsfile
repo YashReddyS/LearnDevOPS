@@ -46,14 +46,11 @@ pipeline {
         stage('Deploy app') {
             steps {
                 dir('Helm'){
-
-                    withCredentials([file(credentialsId: 'kubernetes-config', variable: 'KUBECONFIG')]) {
                         
-                        bat 'kubectl config use-context gke_learndevops-418907_us-central1_my-gke-cluster'
-                        bat 'helm package currency-exchange-chart'
-                        bat 'helm uninstall my-currency-exchange'
-                        bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
-                    }
+                    bat 'helm package currency-exchange-chart'
+                    bat 'helm uninstall my-currency-exchange'
+                    bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
+                    
                     
                 }
             }
