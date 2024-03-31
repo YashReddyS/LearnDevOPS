@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: {{ include "currency-exchange-chart.fullname" . }}
   labels:
-    {{- include "currency-exchange-chart.labels" . | nindent 4 }}
+    app: {{ include "currency-exchange-chart.name" . }}
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
   selector:
-    {{- include "currency-exchange-chart.selectorLabels" . | nindent 6 }}
+    app: {{ include "currency-exchange-chart.name" . }}
