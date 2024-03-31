@@ -1,6 +1,4 @@
 apiVersion: v2
 name: currency-exchange-chart
-description: A Helm chart for Kubernetes
-type: application
+description: A Helm chart for deploying the currency-exchange application
 version: 0.1.0
-appVersion: "0.0.12-SNAPSHOT"
