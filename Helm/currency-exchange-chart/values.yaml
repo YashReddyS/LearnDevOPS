@@ -1,26 +1,9 @@
 replicaCount: 1
-
 image:
   repository: yashwanthreddysamala/mmv3-currency-exchange-service
+  tag: 0.0.12-SNAPSHOT
   pullPolicy: Always
-  tag: "Latest"
-
 service:
   type: LoadBalancer
   port: 8000
-
-readinessProbe:
-  httpGet:
-    path: /actuator/health/readiness
-    port: 8000
-  initialDelaySeconds: 40
-  failureThreshold: 3
-  periodSeconds: 1
-
-livenessProbe:
-  httpGet:
-    path: /actuator/health/liveness
-    port: 8000
-  initialDelaySeconds: 40
-  failureThreshold: 3
-  periodSeconds: 15
+  targetPort: 8000
