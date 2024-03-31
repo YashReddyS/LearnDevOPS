@@ -46,7 +46,9 @@ pipeline {
             steps {
 
                 dir('Helm') {
+                    withCredentials([file(credentialsId: '9c8b661d-fa52-4921-a4f5-069f95abe3a6', variable: 'GOOGLE_CREDENTIALS')]) {
                     bat "gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907"
+                    }
                     bat "helm package currency-exchange-chart"
                     bat "helm install currency-exchange-chart ./currency-exchange-chart-0.1.0.tgz"
                 }
