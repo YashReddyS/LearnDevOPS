@@ -13,9 +13,16 @@ pipeline {
             steps {
                 // Change to the desired directory
                 dir('Source\\currency-exchange-service') {
-                    // Run commands or steps inside this directory
                     bat 'mvn spring-boot:build-image -DskipTests'
                 }
+            }
+        }
+
+        stage('Push docker image to docker Hub') {
+            steps {
+                bat 'docker tag yashwanthreddysamala/mmv3-currency-exchange-service:0.0.12-SNAPSHOT yashwanthreddysamala/mmv3-currency-exchange-service:Latest'
+                bat 'docker push yashwanthreddysamala/mmv3-currency-exchange-service:Latest'
+                
             }
         }
 
