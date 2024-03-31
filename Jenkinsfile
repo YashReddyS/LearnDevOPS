@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS) {
-                            docker.build('yashwanthreddysamala/mmv3-currency-exchange-service').push('latest')
+                            docker.image('yashwanthreddysamala/mmv3-currency-exchange-service').push('latest')
                         }
                 }
             }
