@@ -24,7 +24,7 @@ pipeline {
 
         stage('Push docker image to docker Hub') {
             steps {
-              bat 'docker login'  
+              bat 'docker push yashwanthreddysamala/mmv3-currency-exchange-service:0.0.12-SNAPSHOT'  
             }
         }
 
