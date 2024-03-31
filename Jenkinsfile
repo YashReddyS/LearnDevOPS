@@ -9,6 +9,16 @@ pipeline {
             }
         }
 
+        stage('Build docker image') {
+            steps {
+                // Change to the desired directory
+                dir('Source\\currency-exchange-service') {
+                    // Run commands or steps inside this directory
+                    bat 'mvn spring-boot:build-image -DskipTests'
+                }
+            }
+        }
+
         stage('Apply Terraform') {
             steps {
                 // Apply the Terraform scripts to create the GKE cluster
