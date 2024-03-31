@@ -24,6 +24,7 @@ pipeline {
                       bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                       bat 'docker push yashwanthreddysamala/mmv3-currency-exchange-service:0.0.12-SNAPSHOT'
                 }
+            }
         }
 
         stage('Apply Terraform') {
