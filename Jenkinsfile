@@ -42,7 +42,7 @@ pipeline {
             }
         }
 
-        stage('Push docker image to docker Hub') {
+        stage('Deploy container') {
             steps {
 
                 dir('Helm') {
