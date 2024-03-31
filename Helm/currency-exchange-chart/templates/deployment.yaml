@@ -3,24 +3,34 @@ kind: Deployment
 metadata:
   name: {{ include "currency-exchange-chart.fullname" . }}
   labels:
-    {{- include "currency-exchange-chart.labels" . | nindent 4 }}
+    app: {{ include "currency-exchange-chart.name" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "currency-exchange-chart.selectorLabels" . | nindent 6 }}
+      app: {{ include "currency-exchange-chart.name" . }}
   template:
     metadata:
       labels:
-        {{- include "currency-exchange-chart.selectorLabels" . | nindent 8 }}
+        app: {{ include "currency-exchange-chart.name" . }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - containerPort: 8000
-          livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
-          readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8000
+          initialDelaySeconds: 40
+          failureThreshold: 3
+          periodSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8000
+          initialDelaySeconds: 40
+          failureThreshold: 3
+          periodSeconds: 15
