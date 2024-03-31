@@ -7,7 +7,10 @@ pipeline {
         CLUSTER_NAME = 'my-gke-cluster'
     }
     
+
+
     stages {
+
         stage('Setup') {
             steps {
                 // Set up Google Cloud SDK
@@ -19,8 +22,7 @@ pipeline {
                 }
             }
         }
-
-    stages {
+        
         stage('Checkout') {
             steps {
                 // Checkout the Terraform scripts from your repository
