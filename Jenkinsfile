@@ -52,7 +52,6 @@ pipeline {
             steps {
                 dir('Helm'){
                     bat 'helm package currency-exchange-chart'
-                    bat 'helm delete my-currency-exchange'
                     bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
                 }
             }
