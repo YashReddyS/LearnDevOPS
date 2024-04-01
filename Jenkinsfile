@@ -45,46 +45,12 @@ pipeline {
 
         stage('Retrieve Secret') {
             steps {
-                script {
-                    // Replace 'your-secret-id' with the actual ID of your secret in Jenkins
-                    withKubeConfig([credentialsId: 'kubernetes-config']) {
-                        bat 'gcloud components install gke-gcloud-auth-plugin'
-                        dir('Helm'){
-                            bat 'helm package currency-exchange-chart'
-                            bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
-                                
-                            }
-                    }
-                }
+                     
+                    bat 'kubectl get pods'
+                         
             }
         }
-        stage('Set KUBECONFIG') {
-            steps {
-                script {
-                    // Set the KUBECONFIG environment variable
-                    bat "SETX KUBECONFIG \"${env.WORKSPACE}\\secret.yaml\""
-                }
-            }
-        }
-        stage('Verify KUBECONFIG') {
-            steps {
-                script {
-                    // Print the value of KUBECONFIG for verification
-                    bat "echo %KUBECONFIG%"
-                }
-            }
-        }
-
-        stage('Deploy app') {
-            steps {
-                dir('Helm'){
-                    bat 'helm package currency-exchange-chart'
-                    bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
-                                
-                }
-            }
-        }
-
+        
         
 
     }
