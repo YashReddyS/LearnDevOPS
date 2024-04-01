@@ -49,7 +49,7 @@ pipeline {
                     // Replace 'your-secret-id' with the actual ID of your secret in Jenkins
                     withCredentials([file(credentialsId: 'kubernetes-config', variable: 'SECRET_FILE_PATH')]) {
                         bat "copy \"${SECRET_FILE_PATH}\" secret.yaml"
-                        bat "SETX KUBECONFIG \"${env.WORKSPACE}\\secret.yaml\""
+                        bat "set KUBECONFIG=%secret.yaml%"
                         bat "echo %KUBECONFIG%"
                         dir('Helm'){
                             bat 'helm package currency-exchange-chart'
