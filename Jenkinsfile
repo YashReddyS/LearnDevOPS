@@ -2,10 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GOOGLE_PROJECT = 'learndevops-418907'
-        GOOGLE_CLUSTER_NAME = 'my-gke-cluster'
-        GOOGLE_ZONE = 'us-central1-f'
-        
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('9c8b661d-fa52-4921-a4f5-069f95abe3a6')
     }
 
     stages{
@@ -53,6 +50,11 @@ pipeline {
         stage('deploy app') {
             steps {
                 dir('Helm'){
+                    bat """
+                    gcloud auth activate-service-account --key-file=%GOOGLE_APPLICATION_CREDENTIALS%
+                    gcloud config set project learndevops-418907
+                    REM Your other gcloud commands here
+                    """
                     bat 'gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907'
                     bat 'helm package currency-exchange-chart'
                     bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
