@@ -48,6 +48,7 @@ pipeline {
                 script {
                     // Replace 'your-secret-id' with the actual ID of your secret in Jenkins
                     withKubeConfig([credentialsId: 'kubernetes-config']) {
+                        bat 'gcloud components install gke-gcloud-auth-plugin'
                         dir('Helm'){
                             bat 'helm package currency-exchange-chart'
                             bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
