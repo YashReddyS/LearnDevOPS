@@ -10,6 +10,17 @@ pipeline {
 
     stages{
 
+
+        stage('Check gcloud') {
+            steps {
+                script {
+                    // Run gcloud version command to check if gcloud is installed
+                    bat 'gcloud version'
+                }
+            }
+        }
+    
+
         stage('Checkout') {
             steps {
                 // Checkout the Terraform scripts from your repository
