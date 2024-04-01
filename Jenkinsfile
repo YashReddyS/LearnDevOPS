@@ -10,17 +10,6 @@ pipeline {
 
     stages{
 
-
-        stage('Check gcloud') {
-            steps {
-                script {
-                    // Run gcloud version command to check if gcloud is installed
-                    bat 'gcloud version'
-                }
-            }
-        }
-    
-
         stage('Checkout') {
             steps {
                 // Checkout the Terraform scripts from your repository
@@ -61,23 +50,11 @@ pipeline {
             }
         }
 
-        stage('Retrieve Secret') {
-            steps {
-        
-                 script {
-                    withCredentials([file(credentialsId: '9c8b661d-fa52-4921-a4f5-069f95abe3a6', variable: 'GCP_CREDS_JSON')]) {
-                        bat """
-                            echo %GCP_CREDS_JSON% > %HOMEDRIVE%%HOMEPATH%\\gcloud-service-key.json
-                            gcloud auth activate-service-account --key-file=%HOMEDRIVE%%HOMEPATH%\\gcloud-service-key.json
-                            gcloud container clusters get-credentials $GOOGLE_CLUSTER_NAME --zone $GOOGLE_ZONE --project $GOOGLE_PROJECT
-                        """
-                    }
-                }
-                         
-            }
+        stage('deploy app') {
+            dir('Helm'){
+                bat 'helm package currency-exchange-chart'
+                bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
         }
         
-        
-
     }
 }
