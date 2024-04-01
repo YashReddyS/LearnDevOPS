@@ -56,7 +56,7 @@ pipeline {
                     """
                     bat 'gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907'
                     bat 'helm package currency-exchange-chart'
-                    bat 'helm upgrade my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
+                    bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
                 }
             }
         }
