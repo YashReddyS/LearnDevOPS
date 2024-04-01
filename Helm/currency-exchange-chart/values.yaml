@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: yashwanthreddysamala/mmv3-currency-exchange-service
-  tag: 0.0.12-SNAPSHOT
+  tag: Latest
   pullPolicy: Always
 service:
   type: LoadBalancer
