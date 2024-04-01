@@ -53,7 +53,7 @@ pipeline {
                     bat """
                     gcloud auth activate-service-account --key-file=%GOOGLE_APPLICATION_CREDENTIALS%
                     gcloud config set project learndevops-418907
-                    'gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907'
+                    gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907
                     
                     set RELEASE_NAME=my-currency-exchange
                     set CHART_PATH=./currency-exchange-chart-0.1.0.tgz
