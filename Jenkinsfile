@@ -53,7 +53,6 @@ pipeline {
                     bat """
                     gcloud auth activate-service-account --key-file=%GOOGLE_APPLICATION_CREDENTIALS%
                     gcloud config set project learndevops-418907
-                    REM Your other gcloud commands here
                     """
                     bat 'gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907'
                     bat 'helm package currency-exchange-chart'
