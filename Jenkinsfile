@@ -51,6 +51,7 @@ pipeline {
                         bat "copy \"${SECRET_FILE_PATH}\" secret.yaml"
                         bat "SETX KUBECONFIG \"${env.WORKSPACE}\\secret.yaml\""
                         bat "echo %KUBECONFIG%"
+                        bat "echo kubectl config view"
                         dir('Helm'){
                             bat 'helm package currency-exchange-chart'
                             bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
