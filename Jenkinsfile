@@ -47,7 +47,10 @@ pipeline {
             steps {
                 script {
                     // Replace 'your-secret-id' with the actual ID of your secret in Jenkins
-                    withCredentials([file(credentialsId: 'kubernetes-config', variable: 'KUBECONFIG')]) {
+                    withCredentials([file(credentialsId: 'kubernetes-config', variable: 'KUBECONFIG_FILE')]) {
+
+                        bat "echo %KUBECONFIG_FILE% > kubeconfig.yml"
+                        bat "set KUBECONFIG=kubeconfig.yml"
                         
                         dir('Helm'){
                             bat 'helm package currency-exchange-chart'
