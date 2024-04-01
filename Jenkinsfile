@@ -43,16 +43,44 @@ pipeline {
             }
         }
 
+        stage('Retrieve Secret') {
+            steps {
+                script {
+                    // Replace 'your-secret-id' with the actual ID of your secret in Jenkins
+                    withCredentials([file(credentialsId: 'kubernetes-config', variable: 'SECRET_FILE_PATH')]) {
+                        bat "copy \"${SECRET_FILE_PATH}\" secret.yaml"
+                    }
+                }
+            }
+        }
+        stage('Set KUBECONFIG') {
+            steps {
+                script {
+                    // Set the KUBECONFIG environment variable
+                    bat "SETX KUBECONFIG \"${env.WORKSPACE}\\secret.yaml\""
+                }
+            }
+        }
+        stage('Verify KUBECONFIG') {
+            steps {
+                script {
+                    // Print the value of KUBECONFIG for verification
+                    bat "echo %KUBECONFIG%"
+                }
+            }
+        }
+
         stage('Deploy app') {
             steps {
                 dir('Helm'){
-                    bat 'kubectl config view --raw > $env:USERPROFILE\.kube\config'
                     bat 'helm package currency-exchange-chart'
                     bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
                                 
                 }
             }
         }
+
+        
 
     }
 }
