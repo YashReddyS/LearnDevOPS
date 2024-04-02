@@ -47,28 +47,21 @@ pipeline {
             }
         }
 
-        stage('deploy app') {
+        stage('set GCloud creds') {
             steps {
                 dir('Helm'){
                     bat """
                     gcloud auth activate-service-account --key-file=%GOOGLE_APPLICATION_CREDENTIALS%
                     gcloud config set project learndevops-418907
                     gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907
-                    
-                    set RELEASE_NAME=my-currency-exchange
-                    set CHART_PATH=./currency-exchange-chart-0.1.0.tgz
-                    
-                    REM Check if the release already exists
-                    helm status %RELEASE_NAME% 2>nul
-                    if %errorlevel% equ 0 (
-                      REM Release exists, perform upgrade
-                      helm upgrade %RELEASE_NAME% %CHART_PATH%
-                    ) else (
-                      REM Release doesn't exist, perform installation
-                      helm install %RELEASE_NAME% %CHART_PATH%
-                    )
                     """
                 }
+            }
+        }
+
+        stage('deploy app') {
+            steps {
+                
             }
         }
         
