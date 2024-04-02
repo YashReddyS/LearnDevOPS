@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 3
 image:
   repository: yashwanthreddysamala/mmv3-currency-exchange-service
   tag: Latest
