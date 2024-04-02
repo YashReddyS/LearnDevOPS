@@ -23,6 +23,18 @@ pipeline {
             }
         }
 
+        stage('set GCloud creds') {
+            steps {
+
+                bat """
+                gcloud auth activate-service-account --key-file=%GOOGLE_APPLICATION_CREDENTIALS%
+                gcloud config set project learndevops-418907
+                gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907
+                """
+                
+            }
+        }
+
         stage('Push docker image to docker Hub') {
             steps {
                       withCredentials([usernamePassword(credentialsId: 'Docker-credentials', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
@@ -47,7 +59,13 @@ pipeline {
             }
         }
 
+        stage('set GCloud creds') {
+            steps {
 
+                bat 'gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907'
+    
+            }
+        }
 
         stage('deploy app') {
             steps {
