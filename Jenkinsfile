@@ -49,20 +49,22 @@ pipeline {
 
         stage('set GCloud creds') {
             steps {
-                dir('Helm'){
-                    bat """
-                    gcloud auth activate-service-account --key-file=%GOOGLE_APPLICATION_CREDENTIALS%
-                    gcloud config set project learndevops-418907
-                    gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907
-                    """
-                }
+
+                bat """
+                gcloud auth activate-service-account --key-file=%GOOGLE_APPLICATION_CREDENTIALS%
+                gcloud config set project learndevops-418907
+                gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907
+                """
+                
             }
         }
 
         stage('deploy app') {
             steps {
-                bat 'helm package currency-exchange-chart'
-                bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
+                dir('Helm'){
+                    bat 'helm package currency-exchange-chart'
+                    bat 'helm install my-currency-exchange ./currency-exchange-chart-0.1.0.tgz'
+                }
             }
         }
         
