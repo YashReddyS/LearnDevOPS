@@ -37,7 +37,7 @@ pipeline {
             steps {
                 // Apply the Terraform scripts to create the GKE cluster
                 dir('Terraform'){
-                    withCredentials([file(credentialsId: '9c8b661d-fa52-4921-a4f5-069f95abe3a6', variable: 'GOOGLE_CREDENTIALS')]) {
+                    withCredentials([file(credentialsId: 'e8917011-7d53-47b1-a5e9-2bf5239f2ba2', variable: 'GOOGLE_CREDENTIALS')]) {
                         bat 'echo "hello"'
                         bat 'terraform init'
                         bat 'set GOOGLE_CREDENTIALS=%GOOGLE_CREDENTIALS%'
