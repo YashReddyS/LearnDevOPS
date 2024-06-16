@@ -50,7 +50,7 @@ pipeline {
         stage('set GCloud creds') {
             steps {
 
-                bat 'gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-418907'
+                bat 'gcloud container clusters get-credentials my-gke-cluster --region us-central1 --project learndevops-426601'
     
             }
         }
