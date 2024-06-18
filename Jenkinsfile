@@ -36,7 +36,6 @@ pipeline {
                    
                         bat 'echo "hello"'
                         bat 'terraform init'
-                        bat 'set GOOGLE_CREDENTIALS=%GOOGLE_CREDENTIALS%'
                         bat 'terraform apply -auto-approve'
                       
                 }
