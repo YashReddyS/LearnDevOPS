@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('559e65af-f76c-4bb2-8227-0c783d739e22')
-    }
-
     stages{
 
         stage('Checkout') {
@@ -37,12 +33,12 @@ pipeline {
             steps {
                 // Apply the Terraform scripts to create the GKE cluster
                 dir('Terraform'){
-                    withCredentials([file(credentialsId: '559e65af-f76c-4bb2-8227-0c783d739e22', variable: 'GOOGLE_CREDENTIALS')]) {
+                   
                         bat 'echo "hello"'
                         bat 'terraform init'
                         bat 'set GOOGLE_CREDENTIALS=%GOOGLE_CREDENTIALS%'
                         bat 'terraform apply -auto-approve'
-                    }  
+                      
                 }
             }
         }
